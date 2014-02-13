@@ -2,6 +2,9 @@ require 'flickraw'
 require 'sinatra'
 require 'erb'
 
+
+class Clienthandling 
+
 ################## Authentication ################################
 
 FlickRaw.api_key="cf109011ace10a7068593a1cac50c3cb"
@@ -14,8 +17,9 @@ FlickRaw.shared_secret="9db5e517217ee3f0"
 
 flickr.access_token = "72157640916575304-a2ef387d72b02f04"
 flickr.access_secret = "20d289d72c262b40"
-######### Holt sich alle Bilder vom dem Benutzer #################
 
+
+######### Holt sich alle Bilder vom dem Benutzer #################
 def getPhotos()
 @photos = flickr.photos.search(:user_id => "117480828@N08")
 
@@ -29,6 +33,8 @@ puts @photos.count # ausgabe in konsole um zugucken ob er was gefunden hat
 
   return @photo_id 
 end
+
+# Ein unabhängige Ausgabe
 puts "getPhots"
 puts getPhotos()
 
@@ -54,7 +60,7 @@ puts @picurl
 =end
 
 
-################ Urls für die Bilder erstellen ###############
+#------  Urls für die Bilder erstellen -------------------------
 def getPhotosUrls()
   @photo_id = getPhotos()
   @infos = []
@@ -76,16 +82,22 @@ def getPhotosUrls()
   return @picurls
 end
 
+
+#----------------------------------------------------------------
+
+end # Ende der Klasse
+
+clientObj = Clienthandling.new
+
 puts "urls"
-puts getPhotosUrls()
-###############################################################
+puts clientObj.getPhotosUrls()
 
 
 get "/index" do
 #@photos = photos
 
 ##@picurls = 
-@a = getPhotosUrls()
+@a = clientObj.getPhotosUrls()
 @picurls = []
  @a.each do |p|            
    @picurls.push p	 
@@ -96,7 +108,6 @@ puts @picurls
 
   erb :html
 end
-
 
 
 
