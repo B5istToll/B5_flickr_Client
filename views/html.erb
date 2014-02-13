@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+</head>
+
+<body>
+
+<div class="header">
+
+</div>
+
+<div class="nav">
+  <ul>
+    <li><a href="">Home</a></li>
+    <li><a href="">Gallery</a></li>
+    <li><a href="">Login</a></li>
+  </ul>
+</div>
+
+<div class="content">
+ 
+  <% @picurls.each do |p| %>   
+   <% i=0;   %> 
+    <div>                  
+     <img src="<%= p %>"> 
+    </div>      
+  <% end %>
+
+</div>
+
+<!--
+<% @photos.each do |p| %>                     
+   <%= p.title %></br>       
+<% end %>
+-->
+</body
+
+
+
+
