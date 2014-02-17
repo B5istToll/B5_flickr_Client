@@ -13,16 +13,16 @@
 
 <div class="nav">
   <ul>
-    <li><a href=<%= url('/Login') %>>Login</a></li>
-    <li><a href=<%= url('/Gallery') %>>Gallery</a></li>
-    <li><a href=<%= url('/Album') %>>Album</a></li>
-    <li><a href=<%= url('/Upload') %>>Upload</a></li>
+    <li><a href=<%= url('/login') %>>Login</a></li>
+    <li><a href=<%= url('/gallery') %>>Gallery</a></li>
+    <li><a href=<%= url('/album') %>>Album</a></li>
+    <li><a href=<%= url('/upload') %>>Upload</a></li>
   </ul>
 </div>
 
 <div class="content">
  
-<form action="/Upload" method="post" enctype="multipart/form-data">
+<form action="/upload" method="post" enctype="multipart/form-data">
   <label for="post_title">Title:</label><br />
   <input id="post_title" name="title" type="text" value="" size="35" maxlength="254"/>
   <br />
@@ -35,7 +35,7 @@
   <textarea id="post_description" name="description" rows="5"> </textarea>
   <br />
  
-  <input type="submit" value="Upload" />
+  <input type="submit" value="Hochladen!" />
 </form> 
 
 </div>
