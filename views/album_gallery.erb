@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+</head>
+
+<body>
+
+<div class="header">
+
+</div>
+
+<div class="nav">
+  <ul>
+    <li><a href=<%= url('/Login') %>>Login</a></li>
+    <li><a href=<%= url('/Gallery') %>>Gallery</a></li>
+    <li><a href=<%= url('/Album') %>>Album</a></li>
+  </ul>
+</div>
+
+<div class="content">
+ 
+  <% @photosetPhotos.each do |i|   
+        
+       photoid = i['id']
+       serverid = i['server']
+       farmid = i['farm']
+       secret = i['secret']  	 
+       @picurl = "http://farm#{farmid}.staticflickr.com/#{serverid}/#{photoid}_#{secret}_m.jpg"
+       @photohref="/Photo/#{photoid}"
+  %>
+     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a> 
+  <% end %>
+
+</div>
+
+
+</body>
+
+</html
+
+
+
+

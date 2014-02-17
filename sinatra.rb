@@ -19,8 +19,6 @@ flickr.access_secret = "20d289d72c262b40"
 def getPhotos()
 @photos = flickr.photos.search(:user_id => "117480828@N08")
 
-#puts @photos.count # ausgabe in konsole um zugucken ob er was gefunden hat
-
 @photo_id = []
 
      @photos.each do |p|                    
@@ -65,40 +63,85 @@ def deletePicture(photoId)
 end
 
 
+#---------------Alben Holen-----------------------------
+
+def getPhotosets()
+
+  @Photosets = flickr.photosets.getList(:user_id => "117480828@N08")
+
+  return @Photosets
+end
+
+
+#---------------Alben Bilder Holen-----------------------------
+
+def getPhotosetPhotos(photosetId)
+
+  @photosetPhotos = flickr.photosets.getPhotos(:photoset_id => "72157641115781773")
+puts photosetId  
+puts @photosetPhotos['primary'] 
+puts "AAAAAAAAAAAAAAAAAAAAAAAA"
+@photosetPhotos.each do |p|                    
+puts "-----------------"
+puts @photosetPhotos
+     end
+
+  return @photosetPhotos
+end
+
+
+#--------------Album erstellen--------------------------
+
+def createPhotoset(title,primaryPicture,description)
+
+  flickr.photosets.create(:title => title, :primary_photo_id => primaryPicture, :description => description)
+
+end
+
+
 #--------------Sinatra----------------------------------
 
-get "/Login" do
+get "/login" do
   erb :login
 end
 
 
 # Zeigt die Gallery vom Benutzer an
-get "/Gallery" do
+get "/gallery" do
   @photosInfos = getPhotosInfos()
     erb :gallery
 end
 
-# 
-get "/Album" do
- puts "Album"
+
+# Zeigt die Alben vom Benutzer an 
+get "/photosets" do
+ @photosets = getPhotosets()
+  erb :album
 end
 
 
 # Einzelne Bilder anzeigen in Groß
-get "/Photo/:photoid" do
+get "/photoset/:photosetid" do
+  @photosetPhotos = getPhotosetPhotos("#{params[:photosetid]}")
+   erb :album_gallery
+end
+
+
+# Einzelne Bilder anzeigen in Groß
+get "/photo/:photoid" do
   @photo = flickr.photos.getInfo(:photo_id => "#{params[:photoid]}")
    erb :photo
 end
 
 
 # Formular für Bilder Hochladen
-get "/Upload" do
+get "/upload" do
  erb :upload
 end
 
 
 # Formular für Bilder Hochladen
-get "/Deleted/:photoid" do
+get "/deleted/:photoid" do
  deletePicture("#{params[:photoid]}")
  @message="Picture is deleted"
  erb :response
@@ -106,14 +149,30 @@ end
 
 
 # Bild vom Formular wird auf flickr Hochgeladen
-post "/Upload" do
+post "/upload" do
  @title = params[:title]
  @pictureLink = params[:pictureLink][:tempfile]
  @description = params[:description]
 
  uploadPicture(@title,@pictureLink,@description)
 
- redirect "/Gallery"
+ redirect "/gallery"
 end
 
+
+# Formular für Album erstellen
+get "/create_photoset" do
+ @photosInfos = getPhotosInfos()
+ erb :create_photoset
+end
+
+
+# Album aus Formular wird erstellt
+post "/create_photoset" do
+ @title = params[:title]
+ @primaryPicture = params[:primaryPicture]
+ @description = params[:description]
+ createPhotoset(@title,@primaryPicture,@description)
+ redirect "/photosets"
+end
 
