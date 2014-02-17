@@ -2,28 +2,24 @@ require 'flickraw'
 require 'sinatra'
 require 'erb'
 
-
-class Clienthandling 
-
-################## Authentication ################################
+#----------------- Authentication --------------------------------------
 
 FlickRaw.api_key="cf109011ace10a7068593a1cac50c3cb"
 FlickRaw.shared_secret="9db5e517217ee3f0"
 
-########### Anmelden mit Benutzer ################################
 
-#flickr.access_token = "72157639387811345-6a080db415bc35da"
-#flickr.access_secret = "03140de3bcfd73bf"
+#--------------- Anmelden mit Benutzer ---------------------------------
 
 flickr.access_token = "72157640916575304-a2ef387d72b02f04"
 flickr.access_secret = "20d289d72c262b40"
 
 
-######### Holt sich alle Bilder vom dem Benutzer #################
+#--------- Holt sich alle Bild Ids vom dem Benutzer -------------------
+
 def getPhotos()
 @photos = flickr.photos.search(:user_id => "117480828@N08")
 
-puts @photos.count # ausgabe in konsole um zugucken ob er was gefunden hat
+#puts @photos.count # ausgabe in konsole um zugucken ob er was gefunden hat
 
 @photo_id = []
 
@@ -34,34 +30,10 @@ puts @photos.count # ausgabe in konsole um zugucken ob er was gefunden hat
   return @photo_id 
 end
 
-# Ein unabhängige Ausgabe
-puts "getPhots"
-puts getPhotos()
 
-##################### Ein Bild auslesen #########################
-=begin
+#---------Informationen für die einzelnen Bilder Speichern-------
 
-info = flickr.photos.getInfo(:photo_id => "11729746393")
-puts info['server']
-puts info['farm']
-puts info['secret']
-
-
-photoid = "11729746393"
-serverid = info['server']
-farmid = info['farm']
-secret = info['secret']
-
-# @picurl = "http://farm#{farmid}.staticflickr.com/#{serverid}/#{photoid}_#{secret}_m.jpg"
-# http://farm3.staticflickr.com/2832/11729746393_f63f4c3305_m.jpg
-
-puts @picurl
-
-=end
-
-
-#------  Urls für die Bilder erstellen -------------------------
-def getPhotosUrls()
+def getPhotosInfos()
   @photo_id = getPhotos()
   @infos = []
 
@@ -69,48 +41,79 @@ def getPhotosUrls()
       @infos.push  flickr.photos.getInfo(:photo_id => pi)  	 
     end 
 
-
-  @picurls = []
-   @infos.each do |i|            
-     photoids = i['id']
-     serverids = i['server']
-     farmids = i['farm']
-     secrets = i['secret']  	 
-     @picurls.push "http://farm#{farmids}.staticflickr.com/#{serverids}/#{photoids}_#{secrets}_m.jpg"
-   end 
-
-  return @picurls
+  return @infos
 end
 
 
-#----------------------------------------------------------------
+#-----------------Bild hochladen------------------------
 
-end # Ende der Klasse
+def uploadPicture(title,pictureLink,description)
 
-clientObj = Clienthandling.new
+  photo_path=pictureLink
+  flickr.upload_photo photo_path, :title => title, :description => description
+  redirect "/Gallery"
 
-puts "urls"
-puts clientObj.getPhotosUrls()
-
-
-get "/index" do
-#@photos = photos
-
-##@picurls = 
-@a = clientObj.getPhotosUrls()
-@picurls = []
- @a.each do |p|            
-   @picurls.push p	 
- end 
-	
-puts "index"
-puts @picurls
-
-  erb :html
 end
 
 
+#-----------------Bild Löschen--------------------------
+
+def deletePicture(photoId)
+
+  flickr.photos.delete(:photo_id => photoId)
+
+end
 
 
+#--------------Sinatra----------------------------------
+
+get "/Login" do
+  erb :login
+end
+
+
+# Zeigt die Gallery vom Benutzer an
+get "/Gallery" do
+  @photosInfos = getPhotosInfos()
+    erb :gallery
+end
+
+# 
+get "/Album" do
+ puts "Album"
+end
+
+
+# Einzelne Bilder anzeigen in Groß
+get "/Photo/:photoid" do
+  @photo = flickr.photos.getInfo(:photo_id => "#{params[:photoid]}")
+   erb :photo
+end
+
+
+# Formular für Bilder Hochladen
+get "/Upload" do
+ erb :upload
+end
+
+
+# Formular für Bilder Hochladen
+get "/Deleted/:photoid" do
+ deletePicture("#{params[:photoid]}")
+ @message="Picture is deleted"
+ erb :response
+end
+
+
+# Bild vom Formular wird auf flickr Hochgeladen
+post "/Upload" do
+ @title = params[:title]
+ @pictureLink = params[:pictureLink][:tempfile]
+ @description = params[:description]
+
+ uploadPicture(@title,@pictureLink,@description)
+
+ redirect "/Gallery"
+end
 
 

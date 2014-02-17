@@ -27,7 +27,7 @@ ul {
   list-style-type:none;
 }
 
-li > a {
+a {
   float:left;
   width:6em;
   text-decoration:none;
@@ -36,17 +36,14 @@ li > a {
   border-right:1px solid white;
 }
 
-li > a:hover {
-  color:purple;
+a:hover {
+  background-color:#ff3300;
 }
 
 li {
   display:inline;
 }
 
-form {
-  padding-top: 50px;
-}
 
 
 

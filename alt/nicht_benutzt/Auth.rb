@@ -18,4 +18,4 @@ rescue FlickRaw::FailedResponse => e
   puts "Authentication failed : #{e.msg}"
 end
 
-photos = flickr.photos.search(:user_id => "12864272@N02")
+#photos = flickr.photos.search(:user_id => "12864272@N02")
