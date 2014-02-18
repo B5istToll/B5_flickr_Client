@@ -99,7 +99,7 @@ def createPhotoset(title,primaryPicture,description)
 end
 
 
-#----------Remove Photo from Photoset-------------------
+#----------Bild aus Album löschen------------------------
 
 def removePictureFromPhotoset(photosetid,photoId)
 
@@ -107,6 +107,23 @@ def removePictureFromPhotoset(photosetid,photoId)
 
 end
 
+
+#--------------Album löschen-----------------------------
+
+def deletePhotoset(photosetid)
+
+  flickr.photosets.delete(:photoset_id => photosetid)
+
+end
+
+
+#--------------Bild zum Album hinzufügen-----------------
+
+def addPhotoToPhotoset(photosetid,photoId)
+
+  flickr.photosets.addPhoto(:photoset_id => photosetid,:photo_id => photoId)
+
+end
 
 
 #--------------Sinatra----------------------------------
@@ -194,3 +211,25 @@ get "/remove/:photosetid/:photoid"  do
  erb :response
 end
 
+
+# Album Löschen
+get "/delete_photoset/:photosetid"  do
+ deletePhotoset("#{params[:photosetid]}")
+ @message="Photoset is removed"
+ erb :response
+end
+
+
+# Bilder zum hinzufügen für die Alben anzeigen
+get "/add/:photosetid"  do
+  @photosInfos = getPhotosInfos()
+  @photosetId = "#{params[:photosetid]}"
+    erb :add
+end
+
+
+# Bild zum Album hinzufügen
+get "/add/:photosetid/:photoid"  do
+  addPhotoToPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
+    redirect "/photoset/#{params[:photosetid]}"
+end
