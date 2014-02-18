@@ -1,7 +1,7 @@
 require 'flickraw'
 require 'sinatra'
 require 'erb'
-require './Funktionsklassen/Fotozugriff.rb'
+require_relative './Funktionsklassen/Fotozugriff.rb'
 
 
 # --- Initialisieren ------------------------------------
@@ -9,7 +9,12 @@ require './Funktionsklassen/Fotozugriff.rb'
 foto = Fotozugriff.new
 
 
-<<<<<<< HEAD
+#----------------- Authentication --------------------------------------
+
+FlickRaw.api_key="cf109011ace10a7068593a1cac50c3cb"
+FlickRaw.shared_secret="9db5e517217ee3f0"
+
+
 #--------------- Anmelden mit Benutzer ---------------------------------
 
 flickr.access_token = "72157640916575304-a2ef387d72b02f04"
@@ -102,11 +107,6 @@ end
 
 
 #--------------Sinatra----------------------------------
-=======
-#--------------Sinatra----------------------------------
-
-
->>>>>>> 12ddde5ad429b503251cd1004f643a28b26910a3
 
 get "/login" do
   erb :login
@@ -115,7 +115,6 @@ end
 
 # Zeigt die Gallery vom Benutzer an
 get "/gallery" do
-<<<<<<< HEAD
   @photosInfos = getPhotosInfos()
     erb :gallery
 end
@@ -132,15 +131,6 @@ end
 get "/photoset/:photosetid" do
   @photosetPhotos = getPhotosetPhotos("#{params[:photosetid]}")
    erb :album_gallery
-=======
-  @photosInfos = foto.getPictureInfo()
-    erb :gallery
-end
-
-# 
-get "/album" do
- puts "Album"
->>>>>>> 12ddde5ad429b503251cd1004f643a28b26910a3
 end
 
 
@@ -159,11 +149,7 @@ end
 
 # Formular für Bilder Hochladen
 get "/deleted/:photoid" do
-<<<<<<< HEAD
  deletePicture("#{params[:photoid]}")
-=======
- foto.deletePicture("#{params[:photoid]}")
->>>>>>> 12ddde5ad429b503251cd1004f643a28b26910a3
  @message="Picture is deleted"
  erb :response
 end
@@ -175,10 +161,9 @@ post "/upload" do
  @pictureLink = params[:pictureLink][:tempfile]
  @description = params[:description]
 
- foto.uploadPicture(@title,@pictureLink,@description)
+ uploadPicture(@title,@pictureLink,@description)
 
  redirect "/gallery"
-<<<<<<< HEAD
 end
 
 
@@ -186,8 +171,6 @@ end
 get "/create_photoset" do
  @photosInfos = getPhotosInfos()
  erb :create_photoset
-=======
->>>>>>> 12ddde5ad429b503251cd1004f643a28b26910a3
 end
 
 
