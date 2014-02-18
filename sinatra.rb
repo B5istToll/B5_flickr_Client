@@ -56,7 +56,7 @@ def uploadPicture(title,pictureLink,description)
 
   photo_path=pictureLink
   flickr.upload_photo photo_path, :title => title, :description => description
-  redirect "/Gallery"
+  redirect "/gallery"
 
 end
 
@@ -84,9 +84,9 @@ end
 
 def getPhotosetPhotos(photosetId)
 
-  @photosetPhotos = flickr.photosets.getPhotos(:photoset_id => "72157641115781773")
+  @photosetPhotos = flickr.photosets.getPhotos(:photoset_id => photosetId)
 puts photosetId  
-puts @photosetPhotos['primary'] 
+puts @photosetPhotos['photo']['id'] 
 puts "AAAAAAAAAAAAAAAAAAAAAAAA"
 @photosetPhotos.each do |p|                    
 puts "-----------------"
