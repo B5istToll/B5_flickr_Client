@@ -15,13 +15,13 @@
   <ul>
     <li><a href=<%= url('/login') %>>Login</a></li>
     <li><a href=<%= url('/gallery') %>>Gallery</a></li>
-    <li><a href=<%= url('/album') %>>Album</a></li>
+    <li><a href=<%= url('/photosets') %>>Album</a></li>
   </ul>
 </div>
 
 <div class="content">
  
-  <% @photosetPhotos.each do |i|   
+  <% @photosetPhotos.photo.each do |i|   
         
        photoid = i['id']
        serverid = i['server']
@@ -29,8 +29,9 @@
        secret = i['secret']  	 
        @picurl = "http://farm#{farmid}.staticflickr.com/#{serverid}/#{photoid}_#{secret}_m.jpg"
        @photohref="/photo/#{photoid}"
+       @photohrefremove="/remove/#{@photosetPhotos['id']}/#{photoid}"
   %>
-     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a> 
+     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a> <a style="color: red;" href=<%= url(@photohrefremove) %>>remove</a>
   <% end %>
 
 </div>

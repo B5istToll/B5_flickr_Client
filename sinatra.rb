@@ -85,13 +85,6 @@ end
 def getPhotosetPhotos(photosetId)
 
   @photosetPhotos = flickr.photosets.getPhotos(:photoset_id => photosetId)
-puts photosetId  
-puts @photosetPhotos['photo']['id'] 
-puts "AAAAAAAAAAAAAAAAAAAAAAAA"
-@photosetPhotos.each do |p|                    
-puts "-----------------"
-puts @photosetPhotos
-     end
 
   return @photosetPhotos
 end
@@ -104,6 +97,16 @@ def createPhotoset(title,primaryPicture,description)
   flickr.photosets.create(:title => title, :primary_photo_id => primaryPicture, :description => description)
 
 end
+
+
+#----------Remove Photo from Photoset-------------------
+
+def removePictureFromPhotoset(photosetid,photoId)
+
+  flickr.photosets.removePhoto(:photoset_id => photosetid,:photo_id => photoId)
+
+end
+
 
 
 #--------------Sinatra----------------------------------
@@ -181,5 +184,13 @@ post "/create_photoset" do
  @description = params[:description]
  createPhotoset(@title,@primaryPicture,@description)
  redirect "/photosets"
+end
+
+
+# Bild aus Album entfernen
+get "/remove/:photosetid/:photoid"  do
+ removePictureFromPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
+ @message="Picture is removed"
+ erb :response
 end
 
