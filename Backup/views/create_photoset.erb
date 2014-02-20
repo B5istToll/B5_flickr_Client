@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+</head>
+
+<body>
+
+<div class="header">
+
+</div>
+
+<div class="nav">
+  <ul>
+    <li><a href=<%= url('/Login') %>>Login</a></li>
+    <li><a href=<%= url('/Gallery') %>>Gallery</a></li>
+    <li><a href=<%= url('/Album') %>>Album</a></li>
+    <li><a href=<%= url('/Upload') %>>Upload</a></li>
+  </ul>
+</div>
+
+<div class="content">
+ 
+<form action="/create_photoset" method="post">
+  <label for="post_title">Title:</label><br />
+  <input id="post_title" name="title" type="text" value="Title" size="35" maxlength="254"/>
+  <br />
+
+  <label for="post_file">Primary Picture:</label><br />
+  <select id="post_file" name="primaryPicture">
+  <% @photosInfos.each do |i|  %>        
+     <option value=<%=i['id']%>><%=i['title']%></option>
+  <% end %>
+  </select>
+  <br />
+
+  <label for="post_description">Description:</label><br />
+  <textarea id="post_description" name="description" rows="5"> </textarea>
+  <br />
+ 
+  <input type="submit" value="Upload" />
+</form> 
+
+</div>
+
+
+</body>
+
+</html
+
+
+
+

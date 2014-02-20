@@ -1,15 +1,13 @@
-#! /usr/bin/env ruby
-
 require 'flickraw'
 require 'sinatra'
 require 'erb'
-require_relative('Funktionsklassen/Fotozugriff')
-require_relative('Funktionsklassen/Authentifizierung')
+require_relative './Funktionsklassen/Fotozugriff.rb'
+
 
 # --- Initialisieren ------------------------------------
 # Objekt für den Umgang mit den Fotografien und der Gallerie ------------
-foto = Fotozugriff.new()
-authObj = Authentifizierung.new()
+foto = Fotozugriff.new
+
 
 #----------------- Authentication --------------------------------------
 
