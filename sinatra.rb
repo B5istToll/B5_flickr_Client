@@ -10,6 +10,8 @@ require_relative('Funktionsklassen/Authentifizierung')
 # Objekt für den Umgang mit den Fotografien und der Gallerie ------------
 foto = Fotozugriff.new()
 authObj = Authentifizierung.new()
+# Ruft den Autorisierungsprozess auf
+authObj.compute()
 
 #----------------- Authentication --------------------------------------
 
