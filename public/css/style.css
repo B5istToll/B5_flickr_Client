@@ -1,5 +1,5 @@
 body {
-  background-color : black;
+  background-color : #A4A4A4;
   color : white;
 }
 
@@ -7,10 +7,10 @@ body {
   width: 19%;
   min-width: 200px;
   height: 10em;
-  margin: 1em 0 0 0.5%;
+  margin: 1.5em 0 0 0.5%;
   float: left;
   text-align: center;
-  padding: 0;
+  padding: 10;
   color: white;
 }
 
@@ -45,7 +45,7 @@ li {
 }
 
 form {
-  padding-top: 50px;
+  padding-top: 100px;
 }
 
 

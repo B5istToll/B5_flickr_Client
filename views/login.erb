@@ -15,13 +15,25 @@
 <div class="nav">
   <ul>
     <li><a href=<%= url('/login') %>>Login</a></li>
+    <li><a href=<%= url('/logout') %>>Logout</a></li>
     <li><a href=<%= url('/gallery') %>>Gallery</a></li>
     <li><a href=<%= url('/photosets') %>>Album</a></li>
+    <li><a href=<%= url('/create_photoset') %>>Create Album</a></li>
   </ul>
 </div>
-
+<p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
 <div class="content">
+  
+ <form name="Form" action="/login" method="post" > 
+  <!-- <label for="post_title"></label> Name -->
+    <input id="post_title" name="Name" type="text" placeholder="susi.sorglos61" size="35" maxlength="254" required="required"/> Name <!-- onsubmit="return validateForm()" -->
+  <br />
+  <!-- <label for="post_description">Passwort: </label> &nbs -->
+    <input id="post_title" name="Passwort" type="password" value="JanDuhr110" size="35" maxlength="254" required="required"/> Passwort
+  <br />
  
+  <input type="submit" value="Login!" />
+</form> 
 
 </div>
 

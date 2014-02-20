@@ -16,24 +16,26 @@
 <div class="nav">
   <ul>
     <li><a href=<%= url('/login') %>>Login</a></li>
+    <li><a href=<%= url('/logout') %>>Logout</a></li>
     <li><a href=<%= url('/gallery') %>>Gallery</a></li>
     <li><a href=<%= url('/photosets') %>>Album</a></li>
+    <li><a href=<%= url('/create_photoset') %>>Create Album</a></li>
     <li><a href=<%= url('/upload') %>>Upload</a></li>
   </ul>
 </div>
-
+<p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
 <div class="content">
  
 <form name="Form" action="/upload" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-  <label for="post_title">Title:</label><br />
+  <label for="post_title">Titel:</label><br />
   <input id="post_title" name="title" type="text" value="" size="35" maxlength="254"/>
   <br />
 
-  <label for="post_file">Picture:</label><br />
+  <label for="post_file">Foto:</label><br />
   <input id="post_file" name="pictureLink" type="file" value="" size="35" maxlength="254"/>
   <br /> 
 
-  <label for="post_description">Description:</label><br />
+  <label for="post_description">Beschreibung:</label><br />
   <textarea id="post_description" name="description" rows="5"> </textarea>
   <br />
  

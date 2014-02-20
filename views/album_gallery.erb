@@ -15,12 +15,15 @@
 <div class="nav">
   <ul>
     <li><a href=<%= url('/login') %>>Login</a></li>
+    <li><a href=<%= url('/logout') %>>Logout</a></li>
     <li><a href=<%= url('/gallery') %>>Gallery</a></li>
     <li><a href=<%= url('/photosets') %>>Album</a></li>
+    <li><a href=<%= url('/create_photoset') %>>Create Album</a></li>
   </ul>
 </div>
+<p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
 <% @addphoto="/add/#{@photosetPhotos['id']}" %>
-<a style="color: white;" href=<%= url(@addphoto) %>>Add Picture</a>
+<button type="submit" onclick="window.location.replace('<%= url(@addphoto) %>')"> Bild zu Album hinzufügen </button>
 <div class="content">
  
   <% @photosetPhotos.photo.each do |i|   
@@ -33,7 +36,8 @@
        @photohref="/photo/#{photoid}"
        @photohrefremove="/remove/#{@photosetPhotos['id']}/#{photoid}"
   %>
-     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a> <a style="color: red;" href=<%= url(@photohrefremove) %>>remove</a>
+     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a>
+     <button type="submit" onclick="window.location.replace('<%= url(@photohrefremove) %>')"> Aus Album löschen </button>
   <% end %>
 
 </div>
