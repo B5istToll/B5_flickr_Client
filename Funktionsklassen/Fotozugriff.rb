@@ -37,7 +37,21 @@ def uploadPicture(title,pictureLink,description)
 
   photo_path=pictureLink
   flickr.upload_photo photo_path, :title => title, :description => description
-  redirect "/gallery"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 end
 

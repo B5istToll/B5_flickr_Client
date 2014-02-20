@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+  <script language="JavaScript" src="/javascript/formular_check.js"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@
 
 <div class="content">
  
-<form action="/upload" method="post" enctype="multipart/form-data">
+<form name="Form" action="/upload" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
   <label for="post_title">Title:</label><br />
   <input id="post_title" name="title" type="text" value="" size="35" maxlength="254"/>
   <br />
