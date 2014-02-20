@@ -13,14 +13,14 @@ authObj = Authentifizierung.new()
 
 #----------------- Authentication --------------------------------------
 
-FlickRaw.api_key="cf109011ace10a7068593a1cac50c3cb"
-FlickRaw.shared_secret="9db5e517217ee3f0"
+FlickRaw.api_key= authObj.getFlickrApiKey()
+FlickRaw.shared_secret= authObj.getFlickrApiSecret()
 
 
 #--------------- Anmelden mit Benutzer ---------------------------------
 
-flickr.access_token = "72157640916575304-a2ef387d72b02f04"
-flickr.access_secret = "20d289d72c262b40"
+flickr.access_token = authObj.getFlickrAccesstoken()
+flickr.access_secret = authObj.getFlickrAccessSecret()
 
 
 
