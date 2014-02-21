@@ -9,9 +9,8 @@ require_relative('Funktionsklassen/Authentifizierung')
 set :session_fail, '/login'
 set :session_secret, 'JanDuhr110'
 
-foto = Fotozugriff.new()
-authObj = Authentifizierung.new()
-# Ruft den Autorisierungsprozess auf
+$foto = Fotozugriff.new()
+$authObj = Authentifizierung.new()
 
 #--------------Sinatra----------------------------------
 get "/" do
@@ -30,8 +29,9 @@ end
 post '/login' do
   if params[:Name]
     session_start!
-    authObj = Authentifizierung.new(params[:Name])
-    authObj.compute()
+    $foto = Fotozugriff.new(params[:Name])
+    $authObj = Authentifizierung.new(params[:Name])
+    $authObj.compute()
     session[:name] = params[:Name]
     redirect '/'
   else
@@ -47,7 +47,7 @@ end
 # Zeigt die Gallery vom Benutzer an
 get "/gallery" do
 	if session?
-  		@photosInfos = foto.getPhotosInfos()
+  		@photosInfos = $foto.getPhotosInfos()
     	erb :gallery
     else
     	redirect "/"
@@ -58,7 +58,7 @@ end
 # Zeigt die Alben vom Benutzer an 
 get "/photosets" do
 if session?
- @photosets = foto.getPhotosets()
+ @photosets = $foto.getPhotosets()
   erb :album
   else
     	redirect "/"
@@ -69,7 +69,7 @@ end
 # Einzelne Bilder anzeigen in Groß
 get "/photoset/:photosetid" do
 if session?
-  @photosetPhotos = foto.getPhotosetPhotos("#{params[:photosetid]}")
+  @photosetPhotos = $foto.getPhotosetPhotos("#{params[:photosetid]}")
    erb :album_gallery
    else
     	redirect "/"
@@ -106,7 +106,7 @@ if session?
  @title = params[:title]
  @description = params[:description]
 
- foto.setPhotoMeta(@photoid,@title,@description)
+ $foto.setPhotoMeta(@photoid,@title,@description)
 
  redirect "/photo/#{params[:photoid]}"
  else
@@ -128,7 +128,7 @@ end
 # Bild aus dem Stream löschen
 get "/deleted/:photoid" do
 if session?
- foto.deletePicture("#{params[:photoid]}")
+ $foto.deletePicture("#{params[:photoid]}")
  redirect "/gallery"
  else
     	redirect "/"
@@ -143,7 +143,7 @@ if session?
  @pictureLink = params[:pictureLink][:tempfile]
  @description = params[:description]
 
- foto.uploadPicture(@title,@pictureLink,@description)
+ $foto.uploadPicture(@title,@pictureLink,@description)
 
  redirect "/gallery"
  else
@@ -155,7 +155,7 @@ end
 # Formular für Album erstellen
 get "/create_photoset" do
 if session?
- @photosInfos = foto.getPhotosInfos()
+ @photosInfos = $foto.getPhotosInfos()
  erb :create_photoset
  else
     	redirect "/"
@@ -169,7 +169,7 @@ if session?
  @title = params[:title]
  @primaryPicture = params[:primaryPicture]
  @description = params[:description]
- foto.createPhotoset(@title,@primaryPicture,@description)
+ $foto.createPhotoset(@title,@primaryPicture,@description)
  redirect "/photosets"
  else
     	redirect "/"
@@ -180,7 +180,7 @@ end
 # Bild aus Album entfernen
 get "/remove/:photosetid/:photoid"  do
 if session?
- foto.removePictureFromPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
+ $foto.removePictureFromPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
  redirect "/gallery"
  else
     	redirect "/"
@@ -191,7 +191,7 @@ end
 # Album Löschen
 get "/delete_photoset/:photosetid"  do
 if session?
- foto.deletePhotoset("#{params[:photosetid]}")
+ $foto.deletePhotoset("#{params[:photosetid]}")
  redirect "/gallery"
  else
     	redirect "/"
@@ -203,7 +203,7 @@ end
 # Bilder zum hinzufügen für die Alben anzeigen
 get "/add/:photosetid"  do
 if session?
-  @photosInfos = foto.getPhotosInfos()
+  @photosInfos = $foto.getPhotosInfos()
   @photosetId = "#{params[:photosetid]}"
     erb :add
     else
@@ -215,7 +215,7 @@ end
 # Bild zum Album hinzufügen
 get "/add/:photosetid/:photoid"  do
 if session?
-  foto.addPhotoToPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
+  $foto.addPhotoToPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
     redirect "/photoset/#{params[:photosetid]}"
     else
     	redirect "/"

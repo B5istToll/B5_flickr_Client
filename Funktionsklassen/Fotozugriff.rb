@@ -10,8 +10,8 @@ class Fotozugriff
 	@authObj
 	
 	
-	def initialize()
-		@authObj = Authentifizierung.new()
+	def initialize(username="susi.sorglos61")
+		@authObj = Authentifizierung.new(username)
 	end
 
 	#--------- Holt sich alle Bild Ids vom dem Benutzer -------------------
