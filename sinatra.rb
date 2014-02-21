@@ -30,6 +30,7 @@ end
 post '/login' do
   if params[:Name]
     session_start!
+    authObj = Authentifizierung.new(params[:Name])
     authObj.compute()
     session[:name] = params[:Name]
     redirect '/'
