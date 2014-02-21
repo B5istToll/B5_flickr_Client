@@ -68,7 +68,7 @@ div.clear {
   clear:both; /* special IE6 */
 }
 
-a:hover, .topmenu.on a {
+li > a:hover, .topmenu.on a {
   color:#4C4C4C;
   background-color:#ababab !important;
 }
@@ -88,3 +88,7 @@ li:hover ul {
 form {
   padding-top: 50px;
 } 
+
+div.album_gallery{
+margin: 0px 0px 60px 0px;
+}

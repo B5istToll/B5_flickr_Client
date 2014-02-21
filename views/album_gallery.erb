@@ -38,6 +38,8 @@
 
 <% @addphoto="/add/#{@photosetPhotos['id']}" %>
 <button type="submit" onclick="window.location.replace('<%= url(@addphoto) %>')"> Bild zu Album hinzufügen </button>
+<p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto --> 
+
 <div class="content">
  
   <% @photosetPhotos.photo.each do |i|   
@@ -50,8 +52,10 @@
        @photohref="/photo/#{photoid}"
        @photohrefremove="/remove/#{@photosetPhotos['id']}/#{photoid}"
   %>
-     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a>
-     <button type="submit" onclick="window.location.replace('<%= url(@photohrefremove) %>')"> Aus Album löschen </button>
+     <div class="album_gallery">
+       <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a>
+       <button type="submit" onclick="window.location.replace('<%= url(@photohrefremove) %>')"> Aus Album löschen </button>
+     </div>
   <% end %>
 
 </div>

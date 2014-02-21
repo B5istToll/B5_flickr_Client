@@ -48,7 +48,10 @@
        @photohref="/photo/#{photoid}"
        @addphoto="/add/#{@photosetId}/#{photoid}"
   %>
-     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a> <a style="color: white;" href=<%= url(@addphoto) %>>add</a>
+     <div class="album_gallery">
+     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a>
+     <button type="submit" onclick="window.location.replace('<%= url(@addphoto) %>')"> Hinzuf&uuml;gen </button>
+     </div>
   <% end %>
       
   
