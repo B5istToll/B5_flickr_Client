@@ -2,11 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
-  <title>flickr Client: Albumgalerie anzeigen</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+  <title>flickr Client: Alle Fotos anzeigen</title>
 </head>
 
 <body>
+
+
 
 <div class="header">
 
@@ -33,14 +35,10 @@
 
 
 <div class="clear"></div>
-
 <p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
-
-<% @addphoto="/add/#{@photosetPhotos['id']}" %>
-<button type="submit" onclick="window.location.replace('<%= url(@addphoto) %>')"> Bild zu Album hinzufügen </button>
 <div class="content">
- 
-  <% @photosetPhotos.photo.each do |i|   
+  
+  <% @photosInfos.each do |i|   
         
        photoid = i['id']
        serverid = i['server']
@@ -48,14 +46,13 @@
        secret = i['secret']  	 
        @picurl = "http://farm#{farmid}.staticflickr.com/#{serverid}/#{photoid}_#{secret}_m.jpg"
        @photohref="/photo/#{photoid}"
-       @photohrefremove="/remove/#{@photosetPhotos['id']}/#{photoid}"
   %>
-     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a>
-     <button type="submit" onclick="window.location.replace('<%= url(@photohrefremove) %>')"> Aus Album löschen </button>
+     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"></a> 
   <% end %>
+      
+  
 
 </div>
-
 
 </body>
 

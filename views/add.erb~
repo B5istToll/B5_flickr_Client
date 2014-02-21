@@ -13,29 +13,16 @@
 </div>
 
 <div class="nav">
-  <div id="menu">
-    <ul>
-      <li class="topmenu"><a href=<%= url('/login') %>>Login</a></li>
-      <li class="topmenu"><a href=<%= url('/logout') %>>Logout</a></li>
-      <li class="topmenu"><a href=<%= url('/gallery') %>>Gallery</a>
-        <ul>
-          <li class="submenu"><a href=<%= url('/upload') %>>Upload</a></li>
-        </ul>	      
-      </li>
-      <li class="topmenu"><a href=<%= url('/photosets') %>>Album</a>
-      <ul>
-         <li class="submenu"><a href=<%= url('/create_photoset') %>>Create Album</a></li>
-      </ul>
-    </li>
+  <ul>
+    <li><a href=<%= url('/login') %>>Login</a></li>
+    <li><a href=<%= url('/logout') %>>Logout</a></li>
+    <li><a href=<%= url('/gallery') %>>Gallery</a></li>
+    <li><a href=<%= url('/photosets') %>>Album</a></li>
+    <li><a href=<%= url('/upload') %>>Upload</a></li>
+    <li><a href=<%= url('/create_photoset') %>>Create Album</a></li>
   </ul>
 </div>
-</div>
-
-
-<div class="clear"></div>
-
 <p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
-
 <div class="content">
   
   <% @photosInfos.each do |i|   
