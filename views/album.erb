@@ -51,9 +51,8 @@
        @photohref="/photoset/#{photosetid}"
        @photosetdelete="/delete_photoset/#{photosetid}"
   %>
-     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>">
+     <a href=<%= url(@photohref) %>><img src="<%= @picurl %>"> </a> 
      <button type="submit" onclick="window.location.replace('<%= url(@photosetdelete) %>')"> Album löschen </button>
-     </a> 
      <p>
      <div style="font-weight:bold;"><%= @title %></div>  
      <br /><%= @description %>

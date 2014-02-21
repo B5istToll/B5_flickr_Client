@@ -181,7 +181,7 @@ end
 get "/remove/:photosetid/:photoid"  do
 if session?
  $foto.removePictureFromPhotoset("#{params[:photosetid]}","#{params[:photoid]}")
- redirect "/gallery"
+ redirect "/photosets"
  else
     	redirect "/"
     end	
@@ -192,7 +192,7 @@ end
 get "/delete_photoset/:photosetid"  do
 if session?
  $foto.deletePhotoset("#{params[:photosetid]}")
- redirect "/gallery"
+ redirect "/photosets"
  else
     	redirect "/"
     end	
