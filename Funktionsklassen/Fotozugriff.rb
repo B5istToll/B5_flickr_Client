@@ -98,4 +98,9 @@ class Fotozugriff
 	  flickr.photosets.addPhoto(:photoset_id => photosetid,:photo_id => photoId)
 	end
 
+	#--------------Bild Beschreibung ändern-----------------
+
+	def setPhotoMeta(photoid,title,description)
+	  flickr.photos.setMeta(:photo_id => photoid, :title => title, :description => description)
+	end
 end

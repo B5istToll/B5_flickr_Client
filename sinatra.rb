@@ -87,6 +87,33 @@ if session?
 end
 
 
+# Bildbeschreibung ändern Formular
+get "/edit_photo/:photoid" do
+if session?
+  @photo = flickr.photos.getInfo(:photo_id => "#{params[:photoid]}")
+  erb :edit_photo
+   else
+    	redirect "/"
+    end	
+end
+
+
+# Bild beschreibung wird hochgeladen
+post "/edit_photo" do
+if session?
+ @photoid = params[:photoid]
+ @title = params[:title]
+ @description = params[:description]
+
+ foto.setPhotoMeta(@photoid,@title,@description)
+
+ redirect "/photo/#{params[:photoid]}"
+ else
+    	redirect "/"
+    end	
+end
+
+
 # Formular für Bilder Hochladen
 get "/upload" do
 if session?

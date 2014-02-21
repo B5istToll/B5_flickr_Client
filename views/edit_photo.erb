@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+  <script language="JavaScript" src="/javascript/formular_check.js"></script>
+  <title>flickr Client: Foto hinzufügen</title>
+</head>
+
+<body>
+
+<div class="header">
+
+</div>
+
+<div class="nav">
+  <ul>
+    <li><a href=<%= url('/login') %>>Login</a></li>
+    <li><a href=<%= url('/logout') %>>Logout</a></li>
+    <li><a href=<%= url('/gallery') %>>Gallery</a></li>
+    <li><a href=<%= url('/photosets') %>>Album</a></li>
+    <li><a href=<%= url('/create_photoset') %>>Create Album</a></li>
+    <li><a href=<%= url('/upload') %>>Upload</a></li>
+  </ul>
+</div>
+<p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
+<div class="content">
+
+
+<p>&nbsp;</p> <!-- kleiner Absatz zwischen Menü und Foto -->
+<p class="content">
+   <%        
+     photoid = @photo['id']
+     serverid = @photo['server']
+     farmid = @photo['farm']
+     secret = @photo['secret']  	 
+     @picurl = "http://farm#{farmid}.staticflickr.com/#{serverid}/#{photoid}_#{secret}_b.jpg"   
+     @photohref="/deleted/#{photoid}"
+     @photoedit="/edit_photo/#{photoid}"
+   %>
+<img src="<%= @picurl %>">
+<p>
+	<button type="submit" onclick="window.location.replace('<%= url(@photohref) %>')"> Foto löschen </button>
+        <button type="submit" onclick="window.location.replace('<%= url(@photoedit) %>')"> Foto bearbeiten </button>
+</p>	
+<h1><%= @photo.title %></h1>
+<p><%= @photo.description %></p>
+</p>
+
+ 
+<form name="Form" action="/edit_photo" method="post">
+  <input id="post_title" name="photoid" type="hidden" value="<%= @photo['id'] %>" size="35" maxlength="254"/>
+
+  <label for="post_title">Titel:</label><br />
+  <input id="post_title" name="title" type="text" value="" size="35" maxlength="254"/>
+  <br />
+
+  <label for="post_description">Beschreibung:</label><br />
+  <textarea id="post_description" name="description" rows="5"> </textarea>
+  <br />
+ 
+  <input type="submit" value="Beschreibung Updaten!" />
+</form> 
+
+</div>
+
+
+</body>
+
+</html
+
+
+
+
